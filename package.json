@@ -1,7 +1,6 @@
 {
-  "name": "youtubedownload",
+  "name": "youtubedownloader",
   "version": "1.0.0",
-  "description": "",
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon index.js"
@@ -11,8 +10,12 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^5.0.0",
     "fs": "0.0.1-security",
     "nodemon": "^2.0.15",
-    "ytdl-core": "^4.11.0"
-  }
+    "ytdl-core": "^4.11.4"
+  },
+  "devDependencies": {},
+  "description": ""
 }

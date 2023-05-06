@@ -5,6 +5,10 @@ const fs = require("fs");
 const ytdl = require("ytdl-core");
 const app = express();
 
+const cp = require("child_process");
+const ffmpeg = require("ffmpeg-static");
+const { application } = require("express");
+
 app.use(cors());
 app.listen(4000, () => {
   console.log("server works !! at post 4000");
@@ -32,20 +36,97 @@ app.get("/download", (req, res) => {
   console.log(ytdl.getInfo(URL));
 });
 
-app.post("/youtube", (req, res) => {
+app.post("/youtube", async (req, res) => {
   const url = req.body.url;
   console.log(req.body);
-  ytdl
-    .getBasicInfo(url)
-    .then( info => {
-      console.log(info.videoDetails.title)
-      const title = info.videoDetails.title
-      res.header(`Content-Disposition`,`attachement; filename=${title}.mp4` );
 
-      ytdl(url, {
-        quality: "96",
-        format: "mp4"
-      }).pipe(res)
-    })
-    .catch((err) => console.log(err));
+  let info = await ytdl.getInfo(url);
+  let title = encodeURI(info.videoDetails.title);
+  console.log(title);
+  console.log(encodeURI(title));
+  res.header(`Content-Disposition`, `attachement; filename="${title}".mp4`);
+
+  let video = ytdl(url, { filter: "videoonly" });
+  let audio = ytdl(url, { filter: "audioonly", highWaterMark: 1 << 25 });
+
+  console.log(ffmpeg);
+
+  const ffmpegProcess = cp.spawn(
+    ffmpeg,
+    [
+      "-i",
+      `pipe:3`,
+      "-i",
+      `pipe:4`,
+      "-map",
+      "0:v",
+      "-map",
+      "1:a",
+      "-c:v",
+      "copy",
+      "-c:a",
+      "libmp3lame",
+      "-crf",
+      "27",
+      "-preset",
+      "veryfast",
+      "-movflags",
+      "frag_keyframe+empty_moov",
+      "-f",
+      "mp4",
+      "-loglevel",
+      "error",
+      "-",
+    ],
+    {
+      stdio: ["pipe", "pipe", "pipe", "pipe", "pipe"],
+    }
+  );
+
+  video.pipe(ffmpegProcess.stdio[3]);
+  audio.pipe(ffmpegProcess.stdio[4]);
+  ffmpegProcess.stdio[1].pipe(res);
+
+  let ffmpegLogs = "";
+
+  ffmpegProcess.stdio[2].on("data", (chunk) => {
+    ffmpegLogs += chunk.toString();
+  });
+
+  ffmpegProcess.on("exit", (exitCode) => {
+    if (exitCode === 1) {
+      console.error(ffmpegLogs);
+    }
+  });
+
+  // ytdl
+  //   .getBasicInfo(url)
+  //   .then( info => {
+  //     console.log(info.videoDetails.title)
+  //     const title = info.videoDetails.title
+  //     res.header(`Content-Disposition`,`attachement; filename=${title}.mp4` );
+
+  //     ytdl(url, {
+  //       quality: "137",
+  //       format: "mp4"
+  //     }).pipe(res)
+  //   })
+  //   .catch((err) => console.log(err));
 });
+
+app.post("/convert", async (req, res) => {
+  const url = req.body.url;
+  console.log(req.body);
+  let info = await ytdl.getInfo(url);
+  let title = encodeURI(info.videoDetails.title);
+  console.log(title);
+  console.log(encodeURI(title));
+  res.header(`Content-Disposition`, `attachement; filename="${title}".mp3`);
+
+  let audio = await ytdl(url, { filter: "audioonly", highWaterMark: 1 << 25 });
+  audio.pipe(res)
+
+
+})
+
+

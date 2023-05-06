@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@200;300;400&display=swap");
+
+$thumbnail-color: #487eb0;
+$thumbnail-color-secondary: #40739e;
+$video-color: #e84118;
+$video-color-secondary: #c23616;
+$audio-color: #474787;
+$audio-color-secondary: #706fd3;
+$background-color: #222f3e;
+$primary-font: "Poppins", sans-serif;
+$secondary-font: "Noto Sans", sans-serif;
+$breakpoint-tablet: 960px;
+
+@mixin inputLine($color: rgb(255, 13, 13)) {
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: $color;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+@mixin previewBox($color: black) {
+  border: 2px dashed $color;
+  height: 160px;
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $primary-font;
+}
+
+body {
+  background-color: $background-color;
+
+}
+
+form {
+    margin-bottom: 40px;
+   
+}
+
+.linkInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  height: 50px;
+  font-size: 16px;
+  padding: 0 15px;
+  background: #f1f1f7;
+  border-bottom: 3px solid #ccc;
+  font-family: $secondary-font;
+}
+
+.url-input {
+  position: relative;
+}
+
+.inputThumbLine {
+  @include inputLine($color: $thumbnail-color);
+}
+
+.inputVideoLine {
+  @include inputLine($color: $video-color);
+}
+
+.inputAudioLine {
+  @include inputLine($color: $audio-color);
+}
+
+.url-input input:focus ~ .bottom-line,
+.url-input input:valid ~ .bottom-line {
+  transform: scale(1);
+}
+
+#preview-area-thumb {
+  @include previewBox($color: $thumbnail-color-secondary);
+}
+#preview-icon-thumb,
+#thumbnailText {
+  color: $thumbnail-color;
+}
+#downloadThumb{
+    background-color: $thumbnail-color;
+}
+
+#preview-area-video {
+  @include previewBox($color: $video-color-secondary);
+}
+#preview-icon-video,
+#videoText {
+  color: $video-color;
+}
+#downloadVideo{
+    background-color: $video-color;
+    color: white;
+
+    &:disabled{
+        background-color: #faf7f7;
+        color: #222f3e;
+    }
+}
+
+
+#preview-area-audio {
+  @include previewBox($color: $audio-color-secondary);
+}
+#preview-icon-audio,
+#audioText {
+  color: $audio-color;
+}
+#downloadAudio{
+    background-color: $audio-color;
+    color: white;
+    &:disabled{
+        background-color: #faf7f7;
+        color: #222f3e;
+    }
+}
+
+.preview-area .thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  display: none;
+
+}
+
+.preview-area.active {
+  .thumbnail {
+    display: block;
+  }
+
+  span {
+    display: none;
+  }
+}
+
+#clickModal{
+    display: none;
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .outer-container {
+   width: 100%;
+   display: flex;
+  }
+
+  form {
+    width: 25%;
+    height: 360px;
+  }
+  form:hover {
+    transform: scale(1.03);
+  }
+
+
+  body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+
+  }
+}

@@ -4,108 +4,214 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/6f9db9e598.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="index.css" />
-    <title>Document</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="/uikit/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="/uikit/uikit.min.js"></script>
+    <script src="/uikit/uikit-icons.min.js"></script>
+
+    <!-- <link rel="stylesheet" href="index.css" /> -->
+    <link rel="stylesheet" href="indexcss.css" />
+
+    <script defer src="script.js"></script>
+
+    <title>YouTube Downloader/Converter</title>
   </head>
   <body>
-    <div class="container">
-    <form action="#">
-      <header>Download Thumbnail</header>
-      <div class="url-input">
-        <span class="title">Paste video url:</span>
-        <div class="field">
+    <div class="outer-container uk-padding">
+      <form
+        action="#"
+        class="uk-container uk-background-default uk-padding uk-border-rounded uk-box-shadow-small uk-box-shadow-hover-large"
+      >
+        <header
+          class="uk-text-lead uk-text-large uk-text-capitalize uk-heading-line uk-text-center"
+        >
+          <span id="thumbnailText">Download Image</span>
+        </header>
+        <div class="url-input">
+          <label for="inputThumb">
+            <p class="title uk-margin-small uk-text-default">
+              Paste video url:
+            </p></label
+          >
+          <div class="field">
+            <input
+              type="text"
+              placeholder="https://www.youtube.com/watch?v=t3E-niqGutM"
+              required
+              id="inputThumb"
+              class="linkInput"
+            />
+            <input type="hidden" class="hidden-input" />
+            <div class="bottom-line inputThumbLine"></div>
+          </div>
+        </div>
+        <div
+          class="preview-area uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-margin uk-border-rounded"
+          id="preview-area-thumb"
+        >
+          <img
+            src="#"
+            alt="thumbnail"
+            class="thumbnail"
+            id="imageThumb"
+          />
+          <span
+            uk-icon="icon:  image; ratio:5.5"
+            id="preview-icon-thumb"
+          ></span>
+          <span class="uk-text-default uk-text-center"
+            >Paste video url to see preview</span
+          >
+        </div>
+
+        <!-- <button class="download-btn uk-button uk-button-large uk-width-1-1 uk-border-rounded" name="download" onclick="" id="buttonThumb">
+          Download Thumbnail
+        </button>  -->
+
+        <div uk-lightbox      >
+          <a
+            href="./maxresdefault.jpg"
+            id="downloadThumb"
+            data-type="image"
+            data-alt="Youtube Thumbnail"
+            class="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-border-rounded"
+            uk-tooltip="title: Make sure to use correct url; pos: bottom"
+            >Download Thumbnail</a
+          >
+        </div>
+      </form>
+
+      <form
+        action="/youtube"
+        method="post"
+        class="uk-container uk-background-default uk-padding uk-border-rounded uk-box-shadow-small uk-box-shadow-hover-large"
+      >
+        <header
+          class="uk-text-lead uk-text-large uk-text-capitalize uk-heading-line uk-text-center"
+        >
+          <span id="videoText">Download Video</span>
+        </header>
+        <div class="url-input">
+          <label for="inputVideo">
+            <p class="title uk-margin-small uk-text-default">
+              Paste video url:
+            </p></label
+          >
           <input
-            type="text"
-            placeholder="https://www.youtube.com/watch?v=t3E-niqGutM"
+            name="url"
+            class="linkInput"
+            placeholder="Video URL e.g. https://www.youtube.com/watch?v=MtN1YnoL46Q"
             required
+            id="inputVideo"
           />
           <input type="hidden" class="hidden-input" />
-          <div class="bottom-line"></div>
+          <div class="bottom-line inputVideoLine"></div>
         </div>
-      </div>
-      <div class="preview-area">
-        <img src="img.jpg" alt="thumbnail" class="thumbnail" />
-        <i class="icon fas fa-cloud-download-alt"></i>
-        <span>Paste video url to see preview</span>
-      </div>
 
-      <button class="download-btn" name="download" onclick="" id="button">
-        Download Thumbnail
-      </button>
-    </form>
-  <div>
-    <h1 class="heading">My Own YouTube Downloader !</h1>
-    <form action="/youtube" method="post">
-    <input
-      name="url"
-      class="URL-input"
-      placeholder="Video URL e.g. https://www.youtube.com/watch?v=MtN1YnoL46Q"
-     
-    />
-    <button type="submit" class="convert-button">Convert</button>
-  </form>
-  </div>
+        <div
+          class="preview-area uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-margin uk-border-rounded"
+          id="preview-area-video"
+        >
+          <img
+            src="#"
+            alt="thumbnail"
+            class="thumbnail"
+            id="imageVideo"
+          />
 
-  </div>
+          <span
+            uk-icon="icon:   video-camera; ratio:5.5"
+            id="preview-icon-video"
+          ></span>
+          <span class="uk-text-default uk-text-center"
+            >Paste video url to see preview</span
+          >
+        </div>
+        <button
+          type="submit"
+          id="downloadVideo"
+          disabled
+          class="convert-button uk-button uk-button-large uk-width-1-1 uk-border-rounded"
+          uk-tooltip="title: Make sure to use correct url; pos: bottom"
+          onclick="document.getElementById('clickModal').click()"
+        >
+          Convert
+        </button>
+        <a href="#modal-center" uk-toggle id="clickModal"></a>
 
-    <script>
-      const urlField = document.querySelector(".field input");
-      const previewArea = document.querySelector(".preview-area");
-      console.log(previewArea);
-      const imgTag = previewArea.querySelector(".thumbnail");
-      console.log(imgTag);
-      const hiddenInput = previewArea.querySelector("hidden-input");
-      const button = document.getElementById("button");
+        <div id="modal-center" class="uk-flex-top" uk-modal>
+          <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+            <button
+              class="uk-modal-close-default"
+              type="button"
+              uk-close
+            ></button>
 
-      button.addEventListener("click", function () {
-        let link = document.getElementById("download");
-        console.log(link);
-        link.click();
-        link.remove();
-      });
+            <p>Please allow couple of seconds for the download to start</p>
+          </div>
+        </div>
+      </form>
 
-      function downloadURI(uri) {
-        let link = document.createElement("a");
-        // If you don't know the name or want to use
-        // the webserver default set name = ''
-        link.id = "download";
-        link.download = "";
-        link.target = "_blank";
-        link.href = uri;
-        document.body.appendChild(link);
-      }
+      <form
+        action="/convert"
+        method="post"
+        class="uk-container uk-background-default uk-padding uk-border-rounded uk-box-shadow-small uk-box-shadow-hover-large"
+      >
+        <header
+          class="uk-text-lead uk-text-large uk-text-capitalize uk-heading-line uk-text-center"
+        >
+          <span id="audioText">Download Audio</span>
+        </header>
+        <div class="url-input">
+          <label for="inputAudio">
+            <p class="title uk-margin-small uk-text-default">
+              Paste video url:
+            </p></label
+          >
+          <input
+            name="url"
+            class="linkInput"
+            placeholder="Video URL e.g. https://www.youtube.com/watch?v=MtN1YnoL46Q"
+            required
+            id="inputAudio"
+          />
+          <input type="hidden" class="hidden-input" />
+          <div class="bottom-line inputAudioLine"></div>
+        </div>
+        <div
+          class="preview-area uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-margin uk-border-rounded"
+          id="preview-area-audio"
+        >
+          <img
+            src="#"
+            alt="thumbnail"
+            class="thumbnail"
+            id="imageAudio"
+          />
 
-      urlField.onkeyup = () => {
-        let imgUrl = urlField.value; //getting user entered value
-        console.log(imgUrl);
-        previewArea.classList.add("active");
+          <span
+            uk-icon="icon:    microphone; ratio:5"
+            id="preview-icon-audio"
+          ></span>
+          <span class="uk-text-default uk-text-center"
+            >Paste video url to see preview</span
+          >
+        </div>
+        <button
+          id="downloadAudio"
+          class="uk-button uk-button-large uk-width-1-1 uk-border-rounded"
+          type="submit"
+          class="convert-button"
+          onclick="document.getElementById('clickModal').click()"
+          disabled
+          uk-tooltip="title: Make sure to use correct url; pos: bottom"
+        >
+          Convert
+        </button>
+      </form>
+    </div>
 
-        if (imgUrl.indexOf("https://www.youtube.com/watch?v=") != -1) {
-          //if entered vlue is yt video url
-          let vidId = imgUrl.split("v=")[1].substring(0, 11); //splitting yt video url from v= so we can get only video ID
-          console.log(vidId);
-          let ytThumbUrl = `https://img.youtube.com/vi/${vidId}/maxresdefault.jpg`; //passing entred url video id inside
-          console.log(ytThumbUrl);
-          imgTag.src = ytThumbUrl;
-          downloadURI(ytThumbUrl);
-        } else if (imgUrl.indexOf("https://youtu.be") != -1) {
-          //if video url looks like this
-          let vidId = imgUrl.split("be/")[1].substring(0, 11);
-          let ytImgUrl = `https://img.youtube.com/vi/${vidId}/maxresdefault.jpg`;
-          imgTag.src = ytImgUrl;
-        } else if (imgUrl.match(/\.(jpe?g|png|gif|bmp|webp)$/i)) {
-          //if entered value is other image file url
-          imgTag.src = imgUrl; //passing user entered url inside img src
-        } else {
-          imgTag.src = "";
-          previewArea.classList.remove("active");
-        }
-      };
-    </script>
-    <script src='script.js'></script>
+    
   </body>
 </html>

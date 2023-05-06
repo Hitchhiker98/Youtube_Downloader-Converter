@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@200;300;400&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #222f3e;
+}
+
+form {
+  margin-bottom: 40px;
+}
+
+.linkInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  height: 50px;
+  font-size: 16px;
+  padding: 0 15px;
+  background: #f1f1f7;
+  border-bottom: 3px solid #ccc;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.url-input {
+  position: relative;
+}
+
+.inputThumbLine {
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #487eb0;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.inputVideoLine {
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #e84118;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.inputAudioLine {
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #474787;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.url-input input:focus ~ .bottom-line,
+.url-input input:valid ~ .bottom-line {
+  transform: scale(1);
+}
+
+#preview-area-thumb {
+  border: 2px dashed #40739e;
+  height: 160px;
+}
+
+#preview-icon-thumb,
+#thumbnailText {
+  color: #487eb0;
+}
+
+#downloadThumb {
+  background-color: #487eb0;
+}
+
+#preview-area-video {
+  border: 2px dashed #c23616;
+  height: 160px;
+}
+
+#preview-icon-video,
+#videoText {
+  color: #e84118;
+}
+
+#downloadVideo {
+  background-color: #e84118;
+  color: white;
+}
+#downloadVideo:disabled {
+  background-color: #faf7f7;
+  color: #222f3e;
+}
+
+#preview-area-audio {
+  border: 2px dashed #706fd3;
+  height: 160px;
+}
+
+#preview-icon-audio,
+#audioText {
+  color: #474787;
+}
+
+#downloadAudio {
+  background-color: #474787;
+  color: white;
+}
+#downloadAudio:disabled {
+  background-color: #faf7f7;
+  color: #222f3e;
+}
+
+.preview-area .thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  display: none;
+}
+
+.preview-area.active .thumbnail {
+  display: block;
+}
+.preview-area.active span {
+  display: none;
+}
+
+#clickModal {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .outer-container {
+    width: 100%;
+    display: flex;
+  }
+  form {
+    width: 25%;
+    height: 360px;
+  }
+  form:hover {
+    transform: scale(1.03);
+  }
+  body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+  }
+}/*# sourceMappingURL=indexcss.css.map */
