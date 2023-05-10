@@ -13,9 +13,10 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^5.0.0",
     "fs": "0.0.1-security",
-    "nodemon": "^2.0.15",
     "ytdl-core": "^4.11.4"
   },
-  "devDependencies": {},
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
