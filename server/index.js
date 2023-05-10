@@ -1,13 +1,12 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const fs = require("fs");
 const ytdl = require("ytdl-core");
 const app = express();
 
 const cp = require("child_process");
 const ffmpeg = require("ffmpeg-static");
-const { application } = require("express");
+const { application } = require("express"); 
 
 app.use(cors());
 app.listen(4000, () => {

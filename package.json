@@ -2,8 +2,8 @@
   "name": "youtubedownloader",
   "version": "1.0.0",
   "main": "server/index.js",
-  "engines" : { 
-    "node" : ">=8.0.0" 
+  "engines": {
+    "node": ">=8.0.0"
   },
   "scripts": {
     "start": "node server/index.js",
@@ -14,9 +14,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "ffmpeg": "0.0.4",
     "ffmpeg-static": "^5.0.0",
-    "fs": "0.0.1-security",
     "ytdl-core": "^4.11.4"
   },
   "devDependencies": {
