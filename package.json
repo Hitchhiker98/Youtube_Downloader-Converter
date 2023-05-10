@@ -16,8 +16,8 @@
     "fs": "0.0.1-security",
     "ytdl-core": "^4.11.4"
   },
-  "description": "",
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "description": ""
 }
