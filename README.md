@@ -15,6 +15,4 @@ Website that lets you:
 ### The back-end of the website is built with Node.js, Express.js, [ytdl-core](https://www.npmjs.com/package/ytdl-core) and [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static).
 ### The front-end of the website is built with [UIkit](https://getuikit.com/) and Sass.
 
-## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
